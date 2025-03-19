@@ -80,10 +80,12 @@ let main () =
     let height = 5
 
     let res_superposition = superpositione radius height
-    printfn "Объем цилиндра (суперпозиция): %f" res_superposition
+    System.Console.Write("Объем цилиндра (суперпозиция): ")
+    System.Console.WriteLine(res_superposition)
 
     let res_carry = carry radius height
-    printfn "Объем цилиндра (каррирование): %f" res_carry
+    System.Console.Write("Объем цилиндра (каррирование): ")
+    System.Console.WriteLine(res_carry)
 
     let value = 12345
 
