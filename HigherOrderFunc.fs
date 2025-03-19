@@ -59,7 +59,7 @@ let carry r h =
 
 //Задание 4-5. Рекурсия
 
-let sumDigitsUp n =
+let sumDigitsDown n =
     let rec sumDigitsUp1 n curSum =
         if n = 0 then curSum
         else
@@ -69,7 +69,7 @@ let sumDigitsUp n =
             sumDigitsUp1 n1 newSum
     sumDigitsUp1 n 0
 
-let rec sumDigitsDown n =
+let rec sumDigitsUp n =
     if n = 0 then 0
     else (n%10) + (sumDigitsDown (n / 10))
 
