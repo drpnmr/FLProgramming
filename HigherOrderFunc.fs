@@ -182,13 +182,35 @@ let sumPrimeDivisors n =
 
 let digitsGreater3 number =
     let rec loop num acc =
-        if num = 0 then acc  
-        else
+        match num with
+        |0 -> acc  
+        |_ -> 
             let digit = num % 10 
             let newAcc = 
                 if digit % 2 <> 0 && digit > 3 then acc + 1 else acc 
             loop (num / 10) newAcc
     loop number 0 
+
+// Задание 16, метод 3. Произведение делителей, сумма цифр которых < суммы цифр исходного числа
+
+let sumOfDigits n =
+    let rec loop num acc =
+        match num with
+        |0 -> acc
+        |_-> loop (num / 10) (acc + num % 10)
+    loop n 0
+
+let multyDivisors n condition =
+    let rec loop d acc =
+        if d > n then acc
+        elif n % d = 0 && condition d then loop (d + 1) (acc * d) 
+        else loop (d + 1) acc
+    loop 1 1 
+
+let multyCondition n =
+    let mainSum = sumOfDigits n
+    multyDivisors n (fun x -> sumOfDigits x < mainSum)
+
 
 
 let main () =
@@ -278,5 +300,9 @@ let main () =
     // Задание 16, метод 2
     let sum16_2 = digitsGreater3 12345
     System.Console.WriteLine(sum16_2)
+
+    // Задание 16, метод 3
+    let mult16_3 = multyCondition 18
+    System.Console.WriteLine(mult16_3)
     
 main()
