@@ -10,15 +10,11 @@ let solve (a, b, c) =
         (-b+sqrt(D))/(2.0*a), (-b-sqrt(D))/(2.0*a)
         // [(-b+sqrt(D))/(2.0*a); (-b-sqrt(D))/(2.0*a)]
 
-//System.Console.WriteLine(solve (1.0, 2.0, -3.0))
-
 
 let solve_carry a b c = 
     let D = b*b-4.*a*c
     if D<0 then None
     else Some ((-b+sqrt(D))/(2.0*a), (-b-sqrt(D))/(2.0*a))
-
-// System.Console.WriteLine(solve 1.0 2.0)
 
 type SolveResult =
     None
@@ -109,7 +105,18 @@ let task7 n (operation: int -> int -> int) value =
             let new_acc = operation acc (n % 10)
             func (n/10) new_acc
     func n value
-            
+     
+     
+//Задание 11. Любимый язык
+
+let favoriteLang (lang: string) =
+    match lang with
+    | "F#" | "prolog" -> "Подлиза!"
+    | "Python" -> "Неплохой выбор, но F# лучше"
+    | "Java" -> "Круто, но попробуй F#"
+    | _ -> "Что? Переходи на F#!"
+
+
 
 let main () =
 
@@ -158,5 +165,11 @@ let main () =
     System.Console.Write("test: ")
     let test n = task7 n (fun x y -> if (x<y) then x else y) 10
     System.Console.WriteLine(test 123)
+
+    // Задание 11
+    System.Console.Write("Напиши любимый язык программирования: ")
+    let text = System.Console.ReadLine()
+    let result11 = favoriteLang text
+    System.Console.WriteLine(result11)
     
 main()
