@@ -121,7 +121,26 @@ let favoriteLang (lang: string) =
     | _ -> "Что? Переходи на F#!"
 
 
+//Задание 13, 14. Операции над взаимно простыми
 
+let rec NOD a b =
+    match b with
+    |0 -> a
+    |_ -> NOD b (a % b)
+
+let coprime n (operation: int -> int -> int) initial =
+    
+    let isCoprime x = NOD x n = 1
+    
+    let rec traverse current acc =
+        if current <= 0 then acc
+        else 
+            let newAcc = if isCoprime current then operation acc current else acc
+            traverse (current - 1) newAcc
+    
+    traverse (n - 1) initial
+
+ 
 let main () =
 
     // Задание 2
@@ -179,14 +198,21 @@ let main () =
     // Задание 12
 
     let superpos_lang = (fun () -> System.Console.ReadLine()) >> favoriteLang >> System.Console.WriteLine  // Суперпозиция
-    System.Console.WriteLine("Напиши любимый язык программирования: ")
-    superpos_lang()
+    //System.Console.WriteLine("Напиши любимый язык программирования: ")
+    //superpos_lang()
  
 
     let carry_lang input output =  // Каррирование
         output (favoriteLang input)
 
-    System.Console.WriteLine("Напиши любимый язык программирования: ")
-    carry_lang (System.Console.ReadLine()) System.Console.WriteLine
+    //System.Console.WriteLine("Напиши любимый язык программирования: ")
+    //carry_lang (System.Console.ReadLine()) System.Console.WriteLine
+
+
+    // Задание 13
+    let max13 = coprime 10 (fun x y -> if (x>y) then x else y) 0
+    let sum13 = coprime 10 (+) 0
+    System.Console.WriteLine(sum13)
+
     
 main()
