@@ -133,8 +133,9 @@ let coprime n (operation: int -> int -> int) initial =
     let isCoprime x = NOD x n = 1
     
     let rec traverse current acc =
-        if current <= 0 then acc
-        else 
+        match current with
+        | 0 -> acc
+        | _ ->
             let newAcc = if isCoprime current then operation acc current else acc
             traverse (current - 1) newAcc
     
@@ -142,7 +143,42 @@ let coprime n (operation: int -> int -> int) initial =
 
 let eulerFunc number =
     coprime number (fun acc _ -> acc + 1) 0
- 
+
+// Задание 15. Взаимно простые с условием
+
+let coprime_with_condition n (operation: int -> int -> int) initial (condition: int -> bool) =
+    
+    let isCoprime x = NOD x n = 1
+    
+    let rec traverse current acc =
+        match current with
+        | 0 -> acc
+        | _ ->
+            let newAcc = 
+                if isCoprime current && condition current then operation acc current else acc
+            traverse (current - 1) newAcc
+    
+    traverse n initial
+
+// Задание 16, метод 1. Сумма простых делителей
+
+let isPrime n =
+    if n <= 1 then false
+    else
+        let rec isNotDivisible i =
+            if i = n then true
+            elif n % i = 0 then false
+            else isNotDivisible (i + 1)
+        isNotDivisible 2
+
+let sumPrimeDivisors n =
+    let rec loop divisor acc =
+        if divisor > n then acc
+        elif n % divisor = 0 && isPrime divisor then loop (divisor + 1) (acc + divisor)
+        else loop (divisor + 1) acc
+    loop 2 0
+
+
 let main () =
 
     // Задание 2
@@ -219,5 +255,12 @@ let main () =
     let euler = eulerFunc 10
     System.Console.WriteLine(euler)
 
+    // Задание 15
+    let sum15 = coprime_with_condition 10 (+) 0 (fun x -> x % 2 = 0)
+    System.Console.WriteLine(sum15)
+
+    // Задание 16, метод 1
+    let sum16_1 = sumPrimeDivisors 10
+    System.Console.WriteLine(sum16_1)
     
 main()
