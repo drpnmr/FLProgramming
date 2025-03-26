@@ -178,6 +178,18 @@ let sumPrimeDivisors n =
         else loop (divisor + 1) acc
     loop 2 0
 
+// Задание 16, метод 2. Количество нечетных цифр > 3
+
+let digitsGreater3 number =
+    let rec loop num acc =
+        if num = 0 then acc  
+        else
+            let digit = num % 10 
+            let newAcc = 
+                if digit % 2 <> 0 && digit > 3 then acc + 1 else acc 
+            loop (num / 10) newAcc
+    loop number 0 
+
 
 let main () =
 
@@ -262,5 +274,9 @@ let main () =
     // Задание 16, метод 1
     let sum16_1 = sumPrimeDivisors 10
     System.Console.WriteLine(sum16_1)
+
+    // Задание 16, метод 2
+    let sum16_2 = digitsGreater3 12345
+    System.Console.WriteLine(sum16_2)
     
 main()
