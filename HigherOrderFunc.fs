@@ -211,6 +211,14 @@ let multyCondition n =
     let mainSum = sumOfDigits n
     multyDivisors n (fun x -> sumOfDigits x < mainSum)
 
+// Задание 20
+
+let getFunction x = 
+    match x with
+    | 1 -> sumPrimeDivisors
+    | 2 -> digitsGreater3
+    | 3 -> multyCondition
+    | _ -> (fun _ -> 0)
 
 
 let main () =
@@ -304,5 +312,19 @@ let main () =
     // Задание 16, метод 3
     let mult16_3 = multyCondition 18
     System.Console.WriteLine(mult16_3)
+
+    //Задание 20
+    System.Console.WriteLine("Доступные функции:" + "\n" + "1 - сумма простых делителей" + "\n" + "2 - сумма нечетных цифр > 3" + "\n" + "3 - произведение делителей, у которых сумма цифр > суммы цифр исходного числа")
+    System.Console.Write("Введите кортеж: номер функции и число через пробел -  ")
+    let cortege = System.Console.ReadLine()
+    let parts = cortege.Split(' ')
+    let functionNumber = int parts[0]
+    let num = int parts[1]
+
+    let selectedFunction = getFunction functionNumber
+    let result = selectedFunction num
+
+    System.Console.Write("Результат выполнения функции: ")
+    System.Console.WriteLine(result)
     
 main()
