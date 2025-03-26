@@ -10,11 +10,15 @@ let solve (a, b, c) =
         (-b+sqrt(D))/(2.0*a), (-b-sqrt(D))/(2.0*a)
         // [(-b+sqrt(D))/(2.0*a); (-b-sqrt(D))/(2.0*a)]
 
+//System.Console.WriteLine(solve (1.0, 2.0, -3.0))
+
 
 let solve_carry a b c = 
     let D = b*b-4.*a*c
     if D<0 then None
     else Some ((-b+sqrt(D))/(2.0*a), (-b-sqrt(D))/(2.0*a))
+
+// System.Console.WriteLine(solve 1.0 2.0)
 
 type SolveResult =
     None
@@ -171,5 +175,18 @@ let main () =
     let text = System.Console.ReadLine()
     let result11 = favoriteLang text
     System.Console.WriteLine(result11)
+
+    // Задание 12
+
+    let superpos_lang = (fun () -> System.Console.ReadLine()) >> favoriteLang >> System.Console.WriteLine  // Суперпозиция
+    System.Console.WriteLine("Напиши любимый язык программирования: ")
+    superpos_lang()
+ 
+
+    let carry_lang input output =  // Каррирование
+        output (favoriteLang input)
+
+    System.Console.WriteLine("Напиши любимый язык программирования: ")
+    carry_lang (System.Console.ReadLine()) System.Console.WriteLine
     
 main()
