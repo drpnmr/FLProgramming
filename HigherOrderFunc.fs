@@ -138,8 +138,10 @@ let coprime n (operation: int -> int -> int) initial =
             let newAcc = if isCoprime current then operation acc current else acc
             traverse (current - 1) newAcc
     
-    traverse (n - 1) initial
+    traverse n initial
 
+let eulerFunc number =
+    coprime number (fun acc _ -> acc + 1) 0
  
 let main () =
 
@@ -209,10 +211,13 @@ let main () =
     //carry_lang (System.Console.ReadLine()) System.Console.WriteLine
 
 
-    // Задание 13
+    // Задания 13, 14
     let max13 = coprime 10 (fun x y -> if (x>y) then x else y) 0
     let sum13 = coprime 10 (+) 0
     System.Console.WriteLine(sum13)
+
+    let euler = eulerFunc 10
+    System.Console.WriteLine(euler)
 
     
 main()
