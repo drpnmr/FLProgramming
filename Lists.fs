@@ -83,6 +83,36 @@ let find_most_frequent list =
     let fL = frequency_list list list []
     (maxElement fL) |> (pos fL) |> (get_from_list list)   
 
+//Задание 6. Реализация двоичного дерева с элементом строка
+
+type Tree =
+    | Empty
+    | Node of string * Tree * Tree
+
+let node = Empty
+
+let rec add value tree =
+    match tree with
+    | Empty -> Node(value, Empty, Empty)
+    | Node(v, left, right) ->
+        if value < v then Node(v, add value left, right)
+        elif value > v then Node(v, left, add value right)
+        else tree
+
+let rec traverse tree =
+    match tree with
+    | Empty -> []
+    | Node(v, left, right) -> traverse left @ [v] @ traverse right
+
+let print_tree tree =
+    let rec print tree_arr =
+        match tree_arr with
+        | [] -> ignore
+        | head::tail ->
+            System.Console.WriteLine(head.ToString())
+            print tail
+    print (traverse tree)
+
 
 let main () =
      //let arr = readList 5
@@ -106,5 +136,16 @@ let main () =
      printList arr_5
      System.Console.Write("Самый частый из них: ")
      System.Console.WriteLine(find_most_frequent arr_5)
+
+     let tree = 
+        node
+        |> add "строка4"
+        |> add "строка2"
+        |> add "строка1"
+        |> add "строка3"
+        |> add "строка5"
+
+     System.Console.WriteLine("Двоичное дерево с элементами строка:")
+     print_tree tree
 
 main()
