@@ -38,7 +38,7 @@ let main () =
      //let arr = readList 5
 
      let arr = [1; 2; 3; 4; 5]
-     printList arr
+     //printList arr
      let result = sumEven arr
      System.Console.WriteLine(result)
  
@@ -47,5 +47,8 @@ let main () =
  
      let odds = oddCount arr
      System.Console.WriteLine(odds)
+
+    Console.Write("Самый часто встречающийся элемент: ")
+    Console.WriteLine(find_most_frequent arr)
 
 main()
