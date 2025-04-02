@@ -287,6 +287,13 @@ let rec subseq seq1 seq2 =
 
 let reverseArray arr = Array.rev arr
 
+//Задание 19. Количество русских символов
+
+let countRus (str: string) =
+    str 
+    |> Seq.filter (fun c -> (c >= 'А' && c <= 'Я') ||  (c >= 'а' && c <= 'я') )
+    |> Seq.length
+
 let main () =
      //let arr = readList 5
 
@@ -388,5 +395,10 @@ let main () =
 
      System.Console.WriteLine("Перевернутый массив:")
      System.Console.WriteLine(reversedArr)
+
+     let text = "Привет! Hello! 123"
+     let res_19 = countRus text 
+     System.Console.WriteLine("Количество русских символов в строке:")
+     System.Console.WriteLine(res_19)
 
 main()
