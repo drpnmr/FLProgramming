@@ -131,6 +131,31 @@ let count_2_elements (list: int list) =
     |> List.filter (fun x -> unique_el  |> List.exists (fun y -> y * y = x))
     |> List.length
 
+// Задание 9. Реализовать функцию, которая по трем спискам составляет список
+let digit_sum n:int =
+    let rec digit_sum_in n curSum =
+        if n = 0 then curSum
+        else
+            let n_new = n/10
+            let digit = n%10
+            let sum = curSum + digit
+            digit_sum_in n_new sum
+    digit_sum_in n 0
+
+let count_div n =
+    match n with
+    |0->0
+    |_ ->
+        let n_new = abs n
+        [1..n_new] |> List.filter (fun x -> n_new % x = 0) |> List.length
+
+let create_tuples (listA: int list) (listB: int list) (listC: int list) =
+
+    let sortedA = listA |> List.sortByDescending id
+    let sortedB = listB |> List.sortBy (fun x -> (digit_sum x, abs x))
+    let sortedC = listC |> List.sortByDescending (fun x -> (count_div x, abs x))
+    
+    List.zip3 sortedA sortedB sortedC
 
 let main () =
      //let arr = readList 5
@@ -171,5 +196,12 @@ let main () =
 
      System.Console.Write("Количество элементов, являющиеся квадратами других элементов списка: ")
      System.Console.WriteLine(count_2_elements arr)
+
+     let listA = [20; 10; 50]   
+     let listB = [91; 88; 10]
+     let listC = [44; 36; 13]
+
+     System.Console.Write("Получившиеся кортежи вида (Аi, Вi, Сi): ")
+     System.Console.WriteLine(create_tuples listA listB listC)
 
 main()
