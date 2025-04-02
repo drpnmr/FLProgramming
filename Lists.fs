@@ -208,6 +208,33 @@ let findUniqueElement list =
 let findUniqueElementList list =
     list |> List.countBy id |> List.find (fun (_, count) -> count = 1) |> fst
 
+//Задание 13. Элементы после первого максимального (21)
+
+let elementsAfterFirstMax list =
+    let maxEl = maxElement list
+    let rec findFirstMaxIndex list curIndex =
+        match list with
+        | [] -> -1
+        | head :: tail ->
+            if head = maxEl then curIndex
+            else findFirstMaxIndex tail (curIndex + 1)
+    
+    let rec takeAfterIndex list index currentIndex =
+        match list with
+        | [] -> []
+        | head :: tail ->
+            if currentIndex > index then head :: takeAfterIndex tail index (currentIndex + 1)
+            else takeAfterIndex tail index (currentIndex + 1)
+    
+    let firstMaxIndex = findFirstMaxIndex list 0
+    takeAfterIndex list firstMaxIndex 0
+
+let elementsAfterFirstMaxList list =
+    let maxEl = List.max list 
+    let firstMaxIndex = list |> List.findIndex (fun x -> x = maxEl)
+    list |> List.skip (firstMaxIndex + 1) 
+
+
 let main () =
      //let arr = readList 5
 
@@ -260,7 +287,7 @@ let main () =
      System.Console.WriteLine("Строки, отсортированные по длине: ")
      strings |> List.iter (System.Console.WriteLine)
 
-     let arr_11 = [1; 3; 7; 2; 7; 4; 5]
+     let arr_11 = [1; 3; 7; 2; 7; 4]
 
      System.Console.Write("Количество элементов после максимального через списки Черча: ")
      System.Console.WriteLine(countAfterMax arr_11)
@@ -276,5 +303,10 @@ let main () =
      System.Console.Write("Через List: ")
      System.Console.WriteLine(findUniqueElementList arr_12)
 
+     System.Console.Write("Элементы после первого максимального через списки Черча: ")
+     System.Console.WriteLine(elementsAfterFirstMax arr_11)
+
+     System.Console.Write("Через List: ")
+     System.Console.WriteLine(elementsAfterFirstMax arr_11)
 
 main()
