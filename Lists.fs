@@ -114,7 +114,7 @@ let print_tree tree =
     print (traverse tree)
 
 
- //Задание 7.
+ //Задание 7. ПОиск самого частого встречающегося элемента через класс List
 
 let most_frequent list =
     list
@@ -123,11 +123,19 @@ let most_frequent list =
     |> List.head //первый кортеж отсортированного
     |> fst //перый элемент
 
+//Задание 8. Сколько элементов из списка могут быть квадратом какого-то элемента из списка
+
+let count_2_elements (list: int list) =
+    let unique_el = List.distinct list
+    list
+    |> List.filter (fun x -> unique_el  |> List.exists (fun y -> y * y = x))
+    |> List.length
+
 
 let main () =
      //let arr = readList 5
 
-     let arr = [1; 2; 3; 4; 5]
+     let arr = [2; 3; 4; 5]
      //printList arr
      System.Console.Write("Сумма четных от 1 до 5: ")
      let result = sumEven arr
@@ -160,5 +168,8 @@ let main () =
 
      System.Console.Write("Самый частый элемент (использование List): ")
      System.Console.WriteLine(most_frequent arr_5)
+
+     System.Console.Write("Количество элементов, являющиеся квадратами других элементов списка: ")
+     System.Console.WriteLine(count_2_elements arr)
 
 main()
