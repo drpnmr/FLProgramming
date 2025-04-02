@@ -114,6 +114,16 @@ let print_tree tree =
     print (traverse tree)
 
 
+ //Задание 7.
+
+let most_frequent list =
+    list
+    |> List.countBy id // сгруппировали, посчитали кол-во, получили список пар (элемент, кол-во)
+    |> List.sortByDescending snd //отсортировали по убыванию по 2 элементу
+    |> List.head //первый кортеж отсортированного
+    |> fst //перый элемент
+
+
 let main () =
      //let arr = readList 5
 
@@ -147,5 +157,8 @@ let main () =
 
      System.Console.WriteLine("Двоичное дерево с элементами строка:")
      print_tree tree
+
+     System.Console.Write("Самый частый элемент (использование List): ")
+     System.Console.WriteLine(most_frequent arr_5)
 
 main()
