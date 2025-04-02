@@ -168,7 +168,7 @@ let sort_strings () =
     let lines = readLines [] |> List.rev
     lines |> List.sortBy (fun s -> s.Length)
 
-//Задание 11. Количество элементов после максимального
+//Задание 11. Количество элементов после максимального (1)
 
 let countAfterMax list =
     let maxEl = maxElement list
@@ -191,6 +191,22 @@ let countAfterMaxList list =
         |> List.last
     List.length list - lastIndex - 1
 
+//Задание 12. Поиск уникального элемента (11)
+let findUniqueElement list =
+    let rec count_in list el count =
+        match list with
+        | [] -> count
+        | head :: tail ->
+            let newCount = if head = el then count + 1 else count
+            count_in tail el newCount
+    let rec findUnique list =
+        match list with
+        | [] -> 0
+        | head :: tail -> if count_in list head 0 = 1 then head else findUnique tail
+    findUnique list
+
+let findUniqueElementList list =
+    list |> List.countBy id |> List.find (fun (_, count) -> count = 1) |> fst
 
 let main () =
      //let arr = readList 5
@@ -251,5 +267,14 @@ let main () =
 
      System.Console.Write("Через List: ")
      System.Console.WriteLine(countAfterMaxList arr_11)
+
+     let arr_12 = [2; 2; 2; 3; 2; 2; 2]
+
+     System.Console.Write("Уникальный элемент через списки Черча: ")
+     System.Console.WriteLine(findUniqueElement arr_12)
+
+     System.Console.Write("Через List: ")
+     System.Console.WriteLine(findUniqueElementList arr_12)
+
 
 main()
