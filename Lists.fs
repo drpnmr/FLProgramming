@@ -269,6 +269,20 @@ let averageList list =
     let count = List.length list
     if count = 0 then 0.0 else float sumOfAbs / float count
 
+//Задание 17. Поиск наибольшей общей подпоследовательности
+
+let rec subseq seq1 seq2 =
+    match seq1, seq2 with
+    | [], _ | _, [] -> [] 
+    | head1::tail1, head2::tail2 ->
+        if head1 = head2 then
+            head1 :: subseq tail1 tail2  
+        else
+            // ищем без первого элемента из первой последовательности и без первого элемента из второй
+            let res1 = subseq tail1 seq2
+            let res2 = subseq seq1 tail2
+            if List.length res1 > List.length res2 then res1 else res2 
+
 let main () =
      //let arr = readList 5
 
@@ -354,5 +368,12 @@ let main () =
 
      System.Console.Write("Через List: ")
      System.Console.WriteLine(averageList arr_11)
+
+     let seq1 = [1; 2; 3; 4; 1]
+     let seq2 = [3; 4; 1; 2; 1]
+
+     let result = subseq seq1 seq2
+     System.Console.WriteLine("Наибольшая общая подпоследовательность:")
+     System.Console.WriteLine(result)
 
 main()
