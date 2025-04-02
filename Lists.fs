@@ -234,6 +234,21 @@ let elementsAfterFirstMaxList list =
     let firstMaxIndex = list |> List.findIndex (fun x -> x = maxEl)
     list |> List.skip (firstMaxIndex + 1) 
 
+ //Задание 14. Подсчет четных элементов
+
+let countEvenElements list =
+    let rec count list acc =
+        match list with
+        | [] -> acc
+        | head :: tail -> 
+            let newAcc = if head % 2 = 0 then acc + 1 else acc
+            count tail newAcc
+    count list 0
+
+let countEvenElementsList list =
+    list
+    |> List.filter (fun x -> x % 2 = 0) 
+    |> List.length
 
 let main () =
      //let arr = readList 5
@@ -308,5 +323,12 @@ let main () =
 
      System.Console.Write("Через List: ")
      System.Console.WriteLine(elementsAfterFirstMax arr_11)
+
+     System.Console.Write("Количество четных через списки Черча: ")
+     System.Console.WriteLine(countEvenElements arr_11)
+
+     System.Console.Write("Через List: ")
+     System.Console.WriteLine(countEvenElementsList arr_11)
+
 
 main()
