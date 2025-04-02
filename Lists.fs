@@ -250,6 +250,25 @@ let countEvenElementsList list =
     |> List.filter (fun x -> x % 2 = 0) 
     |> List.length
 
+//Задание 15. Среднее арифметическое модулей
+
+let average list =
+    let rec sumAndCount list accSum accCount =
+        match list with
+        | [] -> (accSum, accCount)
+        | head :: tail -> 
+            let newAccSum = accSum + abs head
+            let newAccCount = accCount + 1
+            sumAndCount tail newAccSum newAccCount
+    
+    let (totalSum, totalCount) = sumAndCount list 0 0
+    if totalCount = 0 then 0.0 else float totalSum / float totalCount
+
+let averageList list =
+    let sumOfAbs = list |> List.map abs |> List.sum
+    let count = List.length list
+    if count = 0 then 0.0 else float sumOfAbs / float count
+
 let main () =
      //let arr = readList 5
 
@@ -330,5 +349,10 @@ let main () =
      System.Console.Write("Через List: ")
      System.Console.WriteLine(countEvenElementsList arr_11)
 
+     System.Console.Write("Среднее арифметическое модулей через списки Черча: ")
+     System.Console.WriteLine(average arr_11)
+
+     System.Console.Write("Через List: ")
+     System.Console.WriteLine(averageList arr_11)
 
 main()
