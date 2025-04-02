@@ -283,6 +283,10 @@ let rec subseq seq1 seq2 =
             let res2 = subseq seq1 tail2
             if List.length res1 > List.length res2 then res1 else res2 
 
+//Задание 18. Первернуть массив
+
+let reverseArray arr = Array.rev arr
+
 let main () =
      //let arr = readList 5
 
@@ -375,5 +379,14 @@ let main () =
      let result = subseq seq1 seq2
      System.Console.WriteLine("Наибольшая общая подпоследовательность:")
      System.Console.WriteLine(result)
+
+     let arr = [| 'П'; 'р'; 'и'; 'в'; 'е'; 'т' |]
+     let reversedArr = reverseArray arr
+
+     System.Console.WriteLine("Исходный массив:")
+     System.Console.WriteLine(arr)
+
+     System.Console.WriteLine("Перевернутый массив:")
+     System.Console.WriteLine(reversedArr)
 
 main()
