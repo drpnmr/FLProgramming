@@ -168,6 +168,30 @@ let sort_strings () =
     let lines = readLines [] |> List.rev
     lines |> List.sortBy (fun s -> s.Length)
 
+//Задание 11. Количество элементов после максимального
+
+let countAfterMax list =
+    let maxEl = maxElement list
+    let rec findLastMaxIndex list curIndex index =
+        match list with
+        | [] -> index
+        | head :: tail ->
+            let newLastIndex = if head = maxEl then curIndex else index
+            findLastMaxIndex tail (curIndex + 1) newLastIndex
+    let lastMaxIndex = findLastMaxIndex list 0 (-1)
+    List.length list - lastMaxIndex - 1
+
+let countAfterMaxList list =
+    let maxEl = List.max list
+    let lastIndex = 
+        list 
+        |> List.mapi (fun i x -> i, x) //список пар индекс + элемент
+        |> List.filter (fun (_, x) -> x = maxEl) //оставили макс пары
+        |> List.map fst
+        |> List.last
+    List.length list - lastIndex - 1
+
+
 let main () =
      //let arr = readList 5
 
@@ -219,5 +243,13 @@ let main () =
      let strings = sort_strings()
      System.Console.WriteLine("Строки, отсортированные по длине: ")
      strings |> List.iter (System.Console.WriteLine)
+
+     let arr_11 = [1; 3; 7; 2; 7; 4; 5]
+
+     System.Console.Write("Количество элементов после максимального через списки Черча: ")
+     System.Console.WriteLine(countAfterMax arr_11)
+
+     System.Console.Write("Через List: ")
+     System.Console.WriteLine(countAfterMaxList arr_11)
 
 main()
