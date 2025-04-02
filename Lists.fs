@@ -157,6 +157,17 @@ let create_tuples (listA: int list) (listB: int list) (listC: int list) =
     
     List.zip3 sortedA sortedB sortedC
 
+//Задание 10. Отсортировать строки по длине
+
+let sort_strings () =
+    let rec readLines acc =
+        let line = System.Console.ReadLine()
+        if  line = "" then acc
+        else readLines (line :: acc)
+    
+    let lines = readLines [] |> List.rev
+    lines |> List.sortBy (fun s -> s.Length)
+
 let main () =
      //let arr = readList 5
 
@@ -203,5 +214,10 @@ let main () =
 
      System.Console.Write("Получившиеся кортежи вида (Аi, Вi, Сi): ")
      System.Console.WriteLine(create_tuples listA listB listC)
+
+     System.Console.WriteLine("Ввод строк:")
+     let strings = sort_strings()
+     System.Console.WriteLine("Строки, отсортированные по длине: ")
+     strings |> List.iter (System.Console.WriteLine)
 
 main()
